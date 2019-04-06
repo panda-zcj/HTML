@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="html/text">
+    </head>
+    <title>demo</title>
+    <body onload="btnClick()">
+       <div id="show"></div> 
+    </body>
+</html> 
+<script>
+var url = "http://api.map.baidu.com/geodata/v3/poi/list?geotable_id=166485&ak=KaWvUZvSiKD5WiBZMk0pKPdx5GBTqwhV";
+var xmlhttp = false;  
+//产生一个XMLHttpRequest对象实例  
+getHTTPRequestObject();  
+  
+function getHTTPRequestObject()  
+{  
+    try  
+    {  
+        xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");  
+    }  
+    catch(e)  
+    {  
+        try  
+        {  
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");  
+        }  
+        catch(E)  
+        {  
+            xmlhttp = false;  
+        }  
+    }  
+    if(!xmlhttp && typeof XMLHttpRequest!= 'undefined')  
+    {  
+        xmlhttp = new XMLHttpRequest();  
+    }  
+}  
+//回调处理  
+function callback()  
+{  
+        if(xmlhttp.readyState == 4)   
+        {  
+            if(xmlhttp.status == 200)  
+            {   
+            // 转换Json数据为javascript对象  
+            //   eval("var objResults =" + xmlhttp.responseText);              
+            //   var displaytext = "";  
+            //   for (var i=0; i < objResults.Results.computer.length; i++)  
+            //   {  
+            //     displaytext += objResults.Results.computer[i].Manufacturer + " " +  
+            //         objResults.Results.computer[i].Model + ": $" +   
+            //         objResults.Results.computer[i].Price + "<br>";   
+            //   }   
+                var finddiv = document.getElementById("show");//寻找显示容器  
+                eval("var obj = "+ xmlhttp.responseText);
+                finddiv.innerHTML = obj.status+"<br/>"+obj.message+"<br/>";
+                // +obj.pois[0].ip;//引用解析好了的数据  
+            }   
+        }  
+}  
+//触发事件  
+function btnClick()  
+{  
+    // retrieve the JSON text from the local file.  
+    xmlhttp.open("GET", url, true);  
+    xmlhttp.onreadystatechange = callback;  
+    xmlhttp.send(null);  
+}  
+
+</script>

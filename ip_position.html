@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 可选的Bootstrap主题文件（一般不使用） -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body onload = "loadXMLDoc()">
+    <div class="container">
+      <div class="jumbotron">
+          <h1>Welcome Demo</h1> 
+          <p>please to book room</p> 
+      </div>
+    </div>
+        
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <a href="https://www.baidu.com/">
+          <h2>King-size bed room</h2>
+          </a>
+          <p>Facilities:
+               umbrella, desk, a variety of specifications of the power socket, 
+                air conditioning, washing machine,alarm clock, manual reclining couch,
+                spare a duvet, blanket or quilt,free WIFI.
+               </p>
+          <p> Bathroom: slippers, bathroom makeup magnifying glasses,
+               24 hour hot water, free toiletries (6 or more), separate shower, hair dryer, shower</p>
+        </div>
+        <div class="col-md-4">
+          <a href="https://www.baidu.com/">
+          <h2>Double room</h2>
+          </a>
+          <p>Facilities:
+              various specifications of power socket, air conditioning, wardrobe / closet, sewing kit, 220V voltage socket, shading curtains, curtains, bedding Manual: a duvet, sofa, room, room WIFI coverage free high-speed Internet
+         </p>
+         <p>Bathroom:
+              slippers, 24 hours hot water, free toiletries (more than 6), bathrobe, bath, hairdryer, telephone, shower bath
+        </p>
+        </div>
+        <div class="col-md-4">
+          <a href="https://www.baidu.com/">
+          <h2>VIP room</h2>
+          </a>
+          <p>We support the highest level of service,
+          and meet all your requirements.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+        <br/> 
+        <br/>
+    </div>
+    <div class="container">
+        <address> 
+            <strong>Hotel, Demo.</strong>
+            <br /> 795 Folsom Ave, Suite 600
+            <br /> San Francisco, CA 94107
+            <br /> 
+            <abbr title="Phone">P:</abbr> 
+            (123) 456-7890
+        </address>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+<script type="text/javascript">
+var xmlhttp;
+var url="http://api.map.baidu.com/geodata/v3/poi/create";
+var lat=30;
+var long=118;
+function loadXMLDoc()
+{
+  if (navigator.geolocation)
+  {
+    navigator.geolocation.getCurrentPosition(function showPosition(position)
+    {
+      lat  =  position.coords.latitude;
+      long =  position.coords.longitude;
+      xmlhttp=null;
+      if (window.XMLHttpRequest)
+      {
+        // code for IE7, Firefox, Opera, etc.
+        xmlhttp=new XMLHttpRequest();
+        }
+      else if (window.ActiveXObject)
+      {
+        // code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      if (xmlhttp!=null)
+      {  
+        var ip = returnCitySN["cip"];
+        var formobj = new FormData();
+        formobj.append( "coord_type" ,1);
+        formobj.append( "geotable_id","166485");
+        formobj.append( "latitude"   ,lat);
+        formobj.append( "longitude"  ,long);
+        formobj.append( "ip"         ,ip);
+        formobj.append( "ak"         ,"KaWvUZvSiKD5WiBZMk0pKPdx5GBTqwhV");
+      
+        xmlhttp.onreadystatechange=state_Change;
+        xmlhttp.open("post",url,true);
+        xmlhttp.send(formobj);
+        }
+      });
+  }
+  else
+  {
+    xmlhttp=null;
+      if (window.XMLHttpRequest)
+      {
+        // code for IE7, Firefox, Opera, etc.
+        xmlhttp=new XMLHttpRequest();
+        }
+      else if (window.ActiveXObject)
+      {
+        // code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      if (xmlhttp!=null)
+      {  
+        var ip = returnCitySN["cip"];
+        var formobj = new FormData();
+        formobj.append( "coord_type" ,1);
+        formobj.append( "geotable_id","166485");
+        formobj.append( "latitude"   ,lat);
+        formobj.append( "longitude"  ,long);
+        formobj.append( "ip"         ,ip);
+        formobj.append( "ak"         ,"KaWvUZvSiKD5WiBZMk0pKPdx5GBTqwhV");
+      
+        xmlhttp.onreadystatechange=state_Change;
+        xmlhttp.open("post",url,true);
+        xmlhttp.send(formobj);
+        }
+  }
+}
+function state_Change()
+{
+  if (xmlhttp.readyState==4)
+  {
+    // 4 = "loaded"
+    if (this.status==200)
+    {
+      // 200 = "OK"
+      //alert("返回状态："+this.status+"<br/>");
+      // var data=eval(xmlhttp.responseText);
+      alert(xmlhttp.responseText);
+    }
+  }
+}
+</script>
